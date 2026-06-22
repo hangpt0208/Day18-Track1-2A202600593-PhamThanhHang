@@ -3,67 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopee AI Support - Đổi Trả / Hoàn Tiền</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Day 18 - Human-Centered AI Design | Shopee AI Agent</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="app-container">
-    <!-- Header -->
-    <header class="chat-header">
-        <button class="back-btn"><i class="fa-solid fa-arrow-left"></i></button>
-        <div class="agent-info">
-            <div class="avatar">
-                <img src="https://cf.shopee.vn/file/49aeb0a8a61cefc487da21e6ce48e24c" alt="AI Agent">
-                <span class="status-indicator"></span>
-            </div>
-            <div class="agent-details">
-                <h1 class="agent-name">Shopee AI Agent <i class="fa-solid fa-robot"></i></h1>
-                <p class="agent-status">Online - Hỗ trợ tự động</p>
-            </div>
-        </div>
-        <button class="more-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-    </header>
+<div class="dashboard">
+    <!-- Left Panel: Documentation & Rationale -->
+    <div class="left-panel">
+        <header class="doc-header">
+            <h1>Day 18: Human-Centered AI Design</h1>
+            <p><strong>Lát cắt:</strong> AI xử lý yêu cầu Đổi trả / Hoàn tiền (Shopee Customer Support Agent)</p>
+            <p><strong>Học viên:</strong> Phạm Thanh Hằng - 2A202600593</p>
+        </header>
 
-    <!-- Chat Area -->
-    <main class="chat-container" id="chat-container">
-        <!-- Messages will be injected here -->
-        <div class="message system-msg time-stamp">Hôm nay 10:24</div>
-        <div class="message system-msg secure-notice">
-            <i class="fa-solid fa-lock"></i> Mọi thông tin đều được bảo mật.
+        <div class="tabs">
+            <button class="tab-btn active" data-target="tab-demo">07 - Demo Path</button>
+            <button class="tab-btn" data-target="tab-flow">00 - Flow Map</button>
+            <button class="tab-btn" data-target="tab-c0">C0 - Onboarding</button>
+            <button class="tab-btn" data-target="tab-c1">C1 - Interaction</button>
+            <button class="tab-btn" data-target="tab-c5">C5 - Agency</button>
+            <button class="tab-btn" data-target="tab-c3">C3 - Uncertainty</button>
+            <button class="tab-btn" data-target="tab-c7">C7 - Failure</button>
+            <button class="tab-btn" data-target="tab-feedback">05 - Feedback & Agency</button>
         </div>
-    </main>
 
-    <!-- Scanning Overlay (Hidden by default) -->
-    <div class="scanning-overlay" id="scanning-overlay">
-        <div class="scan-box">
-            <div class="scan-line"></div>
-            <i class="fa-solid fa-expand scan-icon"></i>
+        <div class="tab-content active" id="tab-demo">
+            <h2>Hướng dẫn Demo (5 phút)</h2>
+            <div class="rationale-card">
+                <p>Prototype này tích hợp 5 kịch bản nối tiếp nhau trong cùng một luồng để thể hiện sự thống nhất. Hãy làm theo trình tự sau trên màn hình bên phải:</p>
+                <ol>
+                    <li><strong>[C0 - Onboarding]:</strong> Đọc tin nhắn chào mừng của AI để hiểu AI làm được gì (Đổi trả) và không làm được gì (Huỷ đơn đã giao).</li>
+                    <li><strong>[C1 - Mơ hồ]:</strong> Bấm Quick Reply <em>"Đơn của tôi có vấn đề"</em>. Xem AI thu hẹp phạm vi thay vì đoán bừa. Bấm chọn <em>"Hàng bị hư hỏng"</em>.</li>
+                    <li><strong>[C5 - Agency & Explainability]:</strong> Bấm nút <strong>Camera</strong> để tải ảnh. Xem AI tự động điền mã đơn (Act) và xin xác nhận số tiền (Ask).</li>
+                    <li><strong>[C3 - Uncertainty]:</strong> Bấm nút <em>"Kiểm tra lại"</em> ở form, sau đó gõ: <em>"Nhưng tôi chưa nhận được hàng mà app báo giao rồi"</em>. Xem AI nhận diện rủi ro cao và chuyển giao (Don't Act).</li>
+                    <li><strong>[C7 - Hiểu sai ý]:</strong> Gõ: <em>"Đơn này đang ở đâu rồi?"</em>. AI hiểu nhầm bạn muốn huỷ đơn. Hãy bấm nút <em>"Không phải ý này"</em> để xem AI khôi phục (Recovery).</li>
+                </ol>
+                <button class="btn btn-primary" onclick="window.resetChat()">Reset Prototype Bắt Đầu Lại</button>
+            </div>
         </div>
-        <p>AI đang xác thực hình ảnh... <span id="scan-progress">0%</span></p>
+
+        <div class="tab-content" id="tab-flow">
+            <h2>00 - Bản đồ luồng (Flow Map)</h2>
+            <div class="rationale-card">
+                <p><strong>Bối cảnh:</strong> Khách hàng gặp vấn đề với đơn hàng và cần hỗ trợ từ AI.</p>
+                <div class="flow-diagram">
+                    <div class="flow-step">Start $\rightarrow$ AI Onboarding (C0)</div>
+                    <div class="flow-step">$\rightarrow$ Khách báo vấn đề chung chung $\rightarrow$ AI thu hẹp phạm vi (C1)</div>
+                    <div class="flow-step">$\rightarrow$ Khách chọn "Hư hỏng" $\rightarrow$ AI yêu cầu ảnh</div>
+                    <div class="flow-step">$\rightarrow$ Khách upload ảnh $\rightarrow$ AI Auto-fill & Xác nhận (C5)</div>
+                    <div class="flow-step">$\rightarrow$ Khách báo mâu thuẫn trạng thái $\rightarrow$ AI chuyển giao nhân viên (C3)</div>
+                    <div class="flow-step">$\rightarrow$ Khách hỏi vị trí đơn $\rightarrow$ AI nhầm thành huỷ đơn $\rightarrow$ Recovery (C7)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-c0">
+            <h2>C0 - First-time User Onboarding (Bắt buộc)</h2>
+            <div class="rationale-card">
+                <h3>Design Rationale</h3>
+                <p><strong>1. AI đang biết gì?</strong> Biết khách hàng vừa mở màn hình chat hỗ trợ.<br>
+                <strong>2. AI chưa biết gì?</strong> Chưa biết khách hàng gặp vấn đề cụ thể nào.<br>
+                <strong>3. AI giả định gì?</strong> Giả định khách cần hỗ trợ xoay quanh các chủ đề phổ biến (Đổi trả, Hoàn tiền, Vận chuyển).<br>
+                <strong>4. Điều gì có thể sai?</strong> Khách hàng kỳ vọng AI có thể giải quyết các việc nằm ngoài quyền hạn (VD: Đòi huỷ đơn đã giao).<br>
+                <strong>5. Hậu quả?</strong> Trải nghiệm tồi tệ nếu AI hứa hẹn nhưng không làm được.<br>
+                <strong>6. Dễ phát hiện & Hoàn tác?</strong> Có, bằng cách nói rõ từ đầu.<br>
+                <strong>7. Ranh giới Agency:</strong> <strong>Act</strong> (Tự động đưa ra menu hỗ trợ ban đầu).<br>
+                <strong>8. Người dùng kiểm soát:</strong> Chọn theo menu hoặc tự gõ câu hỏi.<br>
+                <strong>9. Feedback thu thập:</strong> Ghi nhận lựa chọn đầu tiên của khách.<br>
+                <strong>10. Flow giúp người dùng thế nào?</strong> Thiết lập kỳ vọng đúng ngay từ giây đầu tiên.</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-c1">
+            <h2>C1 - Khách mô tả vấn đề không rõ (Trong tương tác)</h2>
+            <div class="rationale-card">
+                <h3>Design Rationale</h3>
+                <p><strong>Bối cảnh:</strong> Khách nhắn "Đơn của tôi có vấn đề".<br>
+                <strong>AI chưa biết gì:</strong> Không biết lỗi do vận chuyển, người bán, hay sản phẩm.<br>
+                <strong>Vì sao không Act?</strong> Nếu AI tự đoán là "giao trễ" và xin lỗi, có thể khách đang bực vì hàng vỡ $\rightarrow$ rủi ro cao.<br>
+                <strong>Quyết định:</strong> <strong>Ask</strong> (Hỏi lại để thu hẹp phạm vi). Đưa ra các Quick Replies cụ thể.<br>
+                <strong>Người dùng kiểm soát:</strong> Chọn đúng tình trạng của mình.</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-c5">
+            <h2>C5 - AI đề xuất hoàn tiền (Agency & Explainability)</h2>
+            <div class="rationale-card">
+                <h3>Design Rationale</h3>
+                <p><strong>Bối cảnh:</strong> Khách tải ảnh hàng vỡ.<br>
+                <strong>Agency:</strong><br>
+                - <strong>Act (Tự hành động):</strong> Trích xuất mã đơn hàng và lý do "Bể vỡ" từ ảnh (Low risk, tiết kiệm thời gian).<br>
+                - <strong>Ask (Hỏi trước):</strong> Tính toán số tiền 150k nhưng yêu cầu khách xác nhận trước khi chốt (Medium risk, liên quan tài chính).<br>
+                <strong>Explainability:</strong> AI hiển thị thông báo giới hạn "Đơn > 5tr cần duyệt thủ công" để khách hiểu tại sao AI có thể duyệt đơn này nhưng đơn khác thì không.<br>
+                <strong>Hoàn tác:</strong> Khách có thể sửa số tiền nếu AI trích xuất sai.</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-c3">
+            <h2>C3 - Trạng thái đơn hàng mâu thuẫn (Uncertainty)</h2>
+            <div class="rationale-card">
+                <h3>Design Rationale</h3>
+                <p><strong>Bối cảnh:</strong> Hệ thống báo "Đã giao" nhưng khách nói "Chưa nhận".<br>
+                <strong>AI chưa biết:</strong> Shipper giao nhầm, khách nói dối, hay hệ thống lag.<br>
+                <strong>Quyết định:</strong> <strong>Don't Act</strong> (Không tự động hoàn tiền cũng không tự động từ chối). Rủi ro tài chính & trải nghiệm đều cao.<br>
+                <strong>Thiết kế:</strong> Dừng luồng AI, chuyển giao cho người thật kèm theo lời giải thích rõ ràng "Do thông tin mâu thuẫn...".</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-c7">
+            <h2>C7 - AI hiểu sai ý khách (Sai sót & Khôi phục)</h2>
+            <div class="rationale-card">
+                <h3>Design Rationale</h3>
+                <p><strong>Bối cảnh:</strong> Khách hỏi "Đơn đang ở đâu", AI nhầm thành "Huỷ đơn".<br>
+                <strong>Sai sót & Khôi phục:</strong> Thiết kế không bắt người dùng gõ lại "Tôi không muốn huỷ". Cung cấp luôn nút <strong>"Không phải ý này"</strong>.<br>
+                <strong>Khi bấm nút:</strong> AI xin lỗi, ghi nhận implicit feedback rằng model nlp đang sai ở câu này, và lập tức chuyển sang luồng tra cứu vận đơn.<br>
+                <strong>Giúp người dùng:</strong> Quay lại luồng chính chỉ với 1 click, không gây bực bội.</p>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-feedback">
+            <h2>05 - Feedback & Agency Summary</h2>
+            <div class="rationale-card">
+                <h3>Ma trận Feedback Bắt buộc</h3>
+                <ul>
+                    <li><strong>Explicit User:</strong> Nút chọn Quick Reply, Upload ảnh, Nút "Không phải ý này".</li>
+                    <li><strong>Implicit User:</strong> Dwell Time (Dừng ở form 8s), Tự gõ chữ thay vì chọn nút.</li>
+                    <li><strong>Explicit System:</strong> Thanh quét ảnh (Scanning), Lời giải thích "Do thông tin mâu thuẫn...".</li>
+                    <li><strong>Implicit System:</strong> Tự động điền dữ liệu (Auto-fill), Đổi màu khi thành công.</li>
+                </ul>
+                <h3>Ranh giới tự chủ (Agency)</h3>
+                <ul>
+                    <li><strong>Act:</strong> Nhận diện hình ảnh, điền form, hiện menu chào mừng.</li>
+                    <li><strong>Ask:</strong> Xin xác nhận số tiền hoàn, hỏi rõ vấn đề khi khách nói mơ hồ.</li>
+                    <li><strong>Don't Act:</strong> Từ chối duyệt tự động khi trạng thái mâu thuẫn (Đã giao vs Chưa nhận).</li>
+                </ul>
+            </div>
+        </div>
     </div>
 
-    <!-- Quick Replies Area -->
-    <div class="quick-replies" id="quick-replies">
-        <!-- Buttons injected here dynamically -->
-    </div>
+    <!-- Right Panel: The Prototype -->
+    <div class="right-panel">
+        <div class="app-container">
+            <header class="chat-header">
+                <button class="back-btn"><i class="fa-solid fa-arrow-left"></i></button>
+                <div class="agent-info">
+                    <div class="avatar">
+                        <img src="https://cf.shopee.vn/file/49aeb0a8a61cefc487da21e6ce48e24c" alt="AI Agent">
+                        <span class="status-indicator"></span>
+                    </div>
+                    <div class="agent-details">
+                        <h1 class="agent-name">Shopee AI Agent <i class="fa-solid fa-robot"></i></h1>
+                        <p class="agent-status">Online - Hỗ trợ tự động</p>
+                    </div>
+                </div>
+                <button class="more-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+            </header>
 
-    <!-- Input Area -->
-    <footer class="chat-footer">
-        <button class="action-btn" id="upload-btn" title="Tải lên bằng chứng">
-            <i class="fa-solid fa-camera"></i>
-        </button>
-        <div class="input-wrapper">
-            <input type="text" id="chat-input" placeholder="Nhập tin nhắn..." autocomplete="off">
+            <main class="chat-container" id="chat-container">
+                <!-- Messages -->
+                <div class="message system-msg time-stamp">Hôm nay <span id="current-time-ui"></span></div>
+                <div class="message system-msg secure-notice">
+                    <i class="fa-solid fa-lock"></i> Mọi thông tin đều được bảo mật.
+                </div>
+            </main>
+
+            <div class="scanning-overlay" id="scanning-overlay">
+                <div class="scan-box">
+                    <div class="scan-line"></div>
+                    <i class="fa-solid fa-expand scan-icon"></i>
+                </div>
+                <p>AI đang xác thực hình ảnh... <span id="scan-progress">0%</span></p>
+            </div>
+
+            <div class="quick-replies" id="quick-replies"></div>
+
+            <footer class="chat-footer">
+                <button class="action-btn" id="upload-btn" title="Tải lên bằng chứng">
+                    <i class="fa-solid fa-camera"></i>
+                </button>
+                <div class="input-wrapper">
+                    <input type="text" id="chat-input" placeholder="Nhập tin nhắn..." autocomplete="off">
+                </div>
+                <button class="send-btn" id="send-btn">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </footer>
         </div>
-        <button class="send-btn" id="send-btn">
-            <i class="fa-solid fa-paper-plane"></i>
-        </button>
-    </footer>
+    </div>
 </div>
 
 <script src="script.js"></script>
